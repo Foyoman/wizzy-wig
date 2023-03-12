@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { debounce } from "lodash";
 
-import "./markdownparser.scss"
+import "./MarkdownParser.scss"
 import './github.scss';
 
 import ReactMarkdown from "react-markdown";
@@ -146,7 +146,7 @@ function MarkdownEditor(props: EditorProps) {
 	const debouncedSetMarkdown = debounce((value: string) => {
 		console.log('running debounced set markdown...')
 		updateMarkdown(value);
-	}, 500);
+	}, 1000);
 
 	// handle monaco editor changes
 	const handleInputChange = useMemo(() => { 
@@ -192,25 +192,15 @@ interface MarkdownParserProps {
 	content?: string;
 	theme?: "light" | "dark" | undefined;
 	splitDirection?: "vertical" | "horizontal" | undefined;
-	updateSaveState?: (value: string) => void;
+	updateSaveState?: (content: string) => void;
 }
 
 const MarkdownParser = ({ 
 	content = "",
 	theme = 'dark',
 	splitDirection = 'vertical',
-	updateSaveState = (value: string) => {
-		const now = new Date();
-		const options: Intl.DateTimeFormatOptions = { year: '2-digit', month: 'numeric', day: 'numeric', hour12: true };
-		const formattedTime = now.toLocaleTimeString("en-GB", options);
-		const timeOnly = now.toLocaleTimeString("en-GB", { hour12: true });
-		console.log('updating save state...');
-		console.log('last saved at: ' + formattedTime);
-		console.log(timeOnly);
-	},
-	// ...props 
+	updateSaveState,
 }: MarkdownParserProps) => {
-	// const { updateSaveState } = props;
 	const [markdown, setMarkdown] = useState(content);
 	const [saved, setSaved] = useState(true);
 	const [split, setSplit] = useState(splitDirection);
@@ -228,7 +218,7 @@ const MarkdownParser = ({
 
 	// trigger autosave after 3 seconds of inactivity
 	useEffect(() => {
-		if (saved) return;
+		if (!updateSaveState || saved) return;
 		const timeout = setTimeout(() => {
 			const now = Date.now();
 			const timeSinceLastEdit = now - lastEditTime;

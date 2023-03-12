@@ -1,0 +1,9 @@
+.navbar {
+	// --color-canvas-default: #22272e;
+	background: #16191e;
+	display: flex;
+	align-items: center;
+	padding: var(--spacer-sm);
+	box-shadow: 0 10px 35px rgba(0,0,0,.1019607843);
+	overflow: visible;
+}

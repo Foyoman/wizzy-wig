@@ -1,7 +1,18 @@
 import Head from 'next/head';
 import MarkdownParser from '@/components/MarkdownParser/MarkdownParser';
+import Navbar from '@/components/Navbar/Navbar';
+import './Home.scss';
+import Sidebar from '@/components/Sidebar/Sidebar';
 
 export default function Home() {
+  const autoSave = (content: string) => {
+    console.log('updating save state...');
+    // move this into axios request response
+    const now = new Date();
+    const time = now.toLocaleTimeString("en-GB", { hour12: true });
+    console.log('last saved at: ' + time);
+  }
+
   return (
     <>
       <Head>
@@ -10,7 +21,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MarkdownParser />
+      <div className="page">
+        <Navbar />
+        <div className='container'>
+          <Sidebar />
+          <div className='md-container'>
+            <MarkdownParser 
+              updateSaveState={autoSave}
+            />
+          </div>
+        </div>
+      </div>
     </>
   )
 }

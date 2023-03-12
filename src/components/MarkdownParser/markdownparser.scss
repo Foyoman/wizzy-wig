@@ -1,9 +1,6 @@
-$neutral-grey: #444C56;
-$lighter-grey: #ACBAC7;
-
 @mixin icon {
 	position: absolute;
-	color: $lighter-grey;
+	color: var(--gh-lighter-grey);
 	cursor: pointer;
 	transition: all .2s;
 	opacity: .6;
@@ -14,7 +11,8 @@ $lighter-grey: #ACBAC7;
 }
 
 .md-parser {
-	height: 100vh;
+	height: 100%;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 
@@ -147,7 +145,7 @@ $lighter-grey: #ACBAC7;
 	}
 
 	.gutter {
-		background-color: $neutral-grey;
+		background-color: var(--gh-neutral-grey);
 		background-repeat: no-repeat;
 		background-position: 50%;
 
@@ -176,7 +174,7 @@ $lighter-grey: #ACBAC7;
 
 	&.light {
 		.gutter {
-			background-color: $lighter-grey;
+			background-color: var(--gh-lighter-grey);
 		}
 
 		.md-editor {
