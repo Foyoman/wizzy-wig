@@ -5,7 +5,7 @@ import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
 import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
 
-// todo: folders
+// todo: path
 interface SidebarItemProps {
 	title: string;
 	dateCreated: Date;
