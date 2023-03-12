@@ -5,12 +5,12 @@
 	flex-direction: column;
 
 	.container {
-		height: 100%;
+		height: calc(100vh - 56px);
 		width: 100%;
 		display: flex;
 
 		.md-container {
-			flex-grow: 1;
+			flex: 1 1 auto;
 		}
 	}
 }

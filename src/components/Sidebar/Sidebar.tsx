@@ -37,7 +37,7 @@ const sidebarItems: Array<SidebarItemProps> = [
 ]
 
 interface SidebarProps {
-	items: Array<SidebarItemProps>;
+	items?: Array<SidebarItemProps>;
 }
 
 export default function Sidebar (
@@ -52,7 +52,9 @@ export default function Sidebar (
 				<NoteAddOutlinedIcon className="icon" />
 			</div>
 			{ items.map((item, index) => 
-			<div key={index}>{ item.title }</div>
+			<div className="sidebar-item" key={index}>
+				{ item.title }
+			</div>
 			)}
 		</div>
 	)
