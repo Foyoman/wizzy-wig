@@ -5,7 +5,7 @@ import { TreeView, TreeItem } from "@mui/lab";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-export interface SidebarItemProps {
+export interface SidebarItem {
 	id: number;
 	parentId?: number;
 	path: string;
@@ -13,28 +13,20 @@ export interface SidebarItemProps {
 	dateCreated: Date;
 	lastUpdated: Date;
 	isFolder: boolean;
-	children?: Array<SidebarItemProps>;
+	children?: Array<SidebarItem>;
 }
 
 interface SidebarItemsProps {
-	items: Array<SidebarItemProps>;
+	items: Array<SidebarItem>;
 }
 
 export default function SidebarItems ({ items }: SidebarItemsProps) {
 	const mapDirectory = (
-		items: Array<SidebarItemProps>,
+		items: Array<SidebarItem>,
 		nested: boolean,
 	) => {
-
-		// todo: to simplify file system, the array of children can be determined by id association 
 		return items.map((item) => {
-			// if (item.isFolder)
-			const children = items.filter((child) => {
-				return child.parentId === item.id;
-			})
-			console.log(children);
-
-			if (item.isFolder) {
+			if (item.children) {
 				return (
 					<TreeItem
 						nodeId={`${item.id}`} 
@@ -43,7 +35,7 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 						title={item.title}
 						className={`sidebar-item ${ nested && 'nested' }`}
 					>
-						{ mapDirectory(children, true) }
+						{ mapDirectory(item.children, true) }
 					</TreeItem>
 				)
 			} else {
@@ -57,35 +49,9 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 					/>
 				)
 			}
-
-
-			// if (item.children) {
-			// 	return (
-			// 		<TreeItem
-			// 			nodeId={`${item.id}`} 
-			// 			key={item.id} 
-			// 			label={item.title} 
-			// 			title={item.title}
-			// 			className={`sidebar-item ${ nested && 'nested' }`}
-			// 		>
-			// 			{ mapDirectory(item.children, true) }
-			// 		</TreeItem>
-			// 	)
-			// } else {
-			// 	return (
-			// 		<TreeItem 
-			// 			nodeId={`${item.id}`} 
-			// 			key={item.id} 
-			// 			label={item.title} 
-			// 			title={item.title}
-			// 			className={`sidebar-item ${ nested && 'nested' }`}
-			// 		/>
-			// 	)
-			// }
 		})
 	}
 	
-	// maybe recursive?
 	const mappedItems = mapDirectory(items, false);
 
 	return (
