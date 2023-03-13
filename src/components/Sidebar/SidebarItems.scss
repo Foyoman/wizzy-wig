@@ -8,5 +8,9 @@
 		&:hover {
 			background-color: var(--color-canvas-default);
 		}
+
+		&.sub-item {
+			padding-left: var(--spacer-sm);
+		}
 	}
 }
