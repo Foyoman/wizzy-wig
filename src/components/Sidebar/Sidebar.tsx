@@ -11,43 +11,66 @@ const files: Array<SidebarItemProps> = [
 	{
 		id: 0,
 		path: './',
-		isFolder: false,
 		title: 'angela',
 		dateCreated: new Date(),
 		lastUpdated: new Date(),
+		isFolder: false,
 	},
 	{
 		id: 1,
 		path: './',
-		isFolder: true,
 		title: 'directory',
 		dateCreated: new Date(),
 		lastUpdated: new Date(),
-	},
-	{
-		id: 2,
-		parentId: 1,
-		path: './directory/',
 		isFolder: true,
-		title: 'subdirectory',
-		dateCreated: new Date(),
-		lastUpdated: new Date(),
-	},
-	{
-		id: 3,
-		path: './',
-		isFolder: false,
-		title: 'typescript',
-		dateCreated: new Date(),
-		lastUpdated: new Date(),
+		children: [
+			{
+				id: 2,
+				parentId: 1,
+				path: './directory/',
+				title: 'subdirectory',
+				dateCreated: new Date(),
+				lastUpdated: new Date(),
+				isFolder: true,
+				children: [
+					{
+						id: 3,
+						parentId: 2,
+						path: './directory/subdirectory/',
+						title: 'subdirectory-file',
+						dateCreated: new Date(),
+						lastUpdated: new Date(),
+						isFolder: false,
+					},
+				]
+			},
+		]
 	},
 	{
 		id: 4,
 		path: './',
-		isFolder: true,
+		title: 'typescript',
+		dateCreated: new Date(),
+		lastUpdated: new Date(),
+		isFolder: false,
+	},
+	{
+		id: 5,
+		path: './',
 		title: 'folder',
 		dateCreated: new Date(),
 		lastUpdated: new Date(),
+		isFolder: true,
+		children: [
+			{
+				id: 6,
+				path: './folder',
+				title: 'subfolder',
+				dateCreated: new Date(),
+				lastUpdated: new Date(),
+				isFolder: false,
+			}
+		]
 	}
 ]
 

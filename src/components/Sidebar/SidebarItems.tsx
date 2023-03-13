@@ -10,10 +10,11 @@ export interface SidebarItemProps {
 	id: number;
 	parentId?: number;
 	path: string;
-	isFolder: boolean;
 	title: string;
 	dateCreated: Date;
 	lastUpdated: Date;
+	isFolder: boolean;
+	children?: Array<SidebarItemProps>;
 }
 
 interface SidebarItemsProps {
@@ -22,65 +23,36 @@ interface SidebarItemsProps {
 
 export default function SidebarItems ({ items }: SidebarItemsProps) {
 	const mapDirectory = (
-		currentDirectory: SidebarItemProps, items: Array<SidebarItemProps>
+		items: Array<SidebarItemProps>
 	) => {
 		
-		const subItems = items.filter((item: SidebarItemProps) => {
-			return item.parentId === currentDirectory.id;
+		return items.map((item) => {
+			if (item.children) {
+				return (
+					<TreeItem
+						nodeId={`${item.id}`} 
+						key={item.id} 
+						label={item.title} 
+						className="sidebar-item"
+					>
+						{ mapDirectory(item.children) }
+					</TreeItem>
+				)
+			} else {
+				return (
+					<TreeItem 
+						nodeId={`${item.id}`} 
+						key={item.id} 
+						label={item.title} 
+						className="sidebar-item"
+					/>
+				)
+			}
 		})
-
-		const isFolder = (item: SidebarItemProps) => item.isFolder;
-		if (items.some(isFolder)) {
-			console.log('current item is folder');
-			return (
-				<TreeItem
-					nodeId={`${currentDirectory.id}`} 
-					key={currentDirectory.id} 
-					label={currentDirectory.title} 
-					className="sidebar-item"
-				>
-				{ subItems.map(item => {
-					if (item.isFolder) {
-						mapDirectory(item, items);
-					} 
-					return (
-						<TreeItem 
-							nodeId={`${currentDirectory.id}`} 
-							key={currentDirectory.id} 
-							label={currentDirectory.title} 
-							className="sidebar-item sub-item"
-						/>
-					)
-				})}
-				</TreeItem>
-			)
-		} else {
-			return items.map((item) => (
-				<TreeItem 
-					nodeId={`${item.id}`} 
-					key={item.id} 
-					label={item.title} 
-					className="sidebar-item"
-				/>
-			))
-		}
 	}
 	
 	// maybe recursive?
-	const mappedItems = items.map((item) => {
-		if (item.isFolder) {
-			mapDirectory(item, items);
-		} else {
-			return (
-				<TreeItem 
-					nodeId={`${item.id}`} 
-					key={item.id} 
-					label={item.title} 
-					className="sidebar-item"
-				/>
-			)
-		}
-	})
+	const mappedItems = mapDirectory(items);
 
 	return (
 		<TreeView 
