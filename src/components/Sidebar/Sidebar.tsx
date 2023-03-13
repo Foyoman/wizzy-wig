@@ -1,7 +1,7 @@
 import React from "react";
 import './Sidebar.scss';
 
-import SidebarItems, { SidebarItem } from "./SidebarItems";
+import SidebarItems, { SidebarItem } from "./SidebarItems/SidebarItems";
 
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
@@ -179,41 +179,6 @@ function sortFileSystem(fileSystem: Array<SidebarItem>): Array<SidebarItem> {
 
 const sortedFileSystem = sortFileSystem(files);
 
-const findItemById = (
-	id: SidebarItem['id'],
-	items: Array<SidebarItem>
-): SidebarItem | null => {
-	for (const item of items) {
-		if (item.id === id) {
-			return item;
-		}
-
-		if (item.isFolder && item.children) {
-			const foundItem = findItemById(id, item.children);
-			if (foundItem) {
-				return foundItem;
-			}
-		}
-	}
-	return null;
-}
-
-
-function alphabetically(
-	a: SidebarItem, 
-	b: SidebarItem
-): number {
-  const titleA = a.title.toLowerCase();
-  const titleB = b.title.toLowerCase();
-  if (titleA < titleB) {
-    return -1;
-  }
-  if (titleA > titleB) {
-    return 1;
-  }
-  return 0;
-}
-
 function lastUpdated(
 	a: SidebarItem, 
 	b: SidebarItem
@@ -243,6 +208,35 @@ const sortByDate = (
     }
     return item;
   });
+}
+
+const appendChild = (item: SidebarItem, child: SidebarItem) => {
+	if (!item.isFolder) throw new Error(`Item with id: ${item.id} is not a folder.`)
+	if (item.children) {
+		item.children.push(child);
+	} else {
+		item.children = [child];
+	}
+}
+
+const appendById = (
+	id: SidebarItem['id'],
+	items: Array<SidebarItem>,
+	child: SidebarItem,
+): SidebarItem | null => {
+	for (const item of items) {
+		if (item.id === id) {
+			appendChild(item, child);
+		}
+
+		if (item.isFolder && item.children) {
+			const foundItem = appendById(id, item.children, child);
+			if (foundItem) {
+				appendChild(foundItem, child);
+			}
+		}
+	}
+	return null;
 }
 
 interface SidebarProps {
