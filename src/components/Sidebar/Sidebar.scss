@@ -22,14 +22,11 @@
 		flex-direction: row-reverse;
 		padding: 0 var(--spacer-xxs);
 		gap: var(--spacer-sm);
+		margin-bottom: var(--spacer-sm);
 
 		.icon {
 			@include icon;
 			// color: var(--gh-neutral-grey);
 		}
-	}
-
-	.sidebar-item {
-		color: var(--gh-lighter-grey);
 	}
 }
