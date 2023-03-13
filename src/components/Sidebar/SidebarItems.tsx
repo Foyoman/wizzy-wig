@@ -7,8 +7,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 export interface SidebarItem {
 	id: number;
-	parentId?: number;
-	path: string;
 	title: string;
 	dateCreated: Date;
 	lastUpdated: Date;
@@ -26,7 +24,7 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 		nested: boolean,
 	) => {
 		return items.map((item) => {
-			if (item.children) {
+			if (item.isFolder) {
 				return (
 					<TreeItem
 						nodeId={`${item.id}`} 
@@ -35,7 +33,10 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 						title={item.title}
 						className={`sidebar-item ${ nested && 'nested' }`}
 					>
-						{ mapDirectory(item.children, true) }
+						{ item.children && mapDirectory(item.children, true) }
+						{ !item.children && 
+						<span style={{ display: 'none' }}></span>
+						}
 					</TreeItem>
 				)
 			} else {

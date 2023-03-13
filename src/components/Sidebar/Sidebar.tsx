@@ -10,7 +10,6 @@ import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
 const files: Array<SidebarItem> = [
 	{
 		id: 0,
-		path: './',
 		title: 'angela',
 		dateCreated: new Date('01-01-2012 00:03:44'),
 		lastUpdated: new Date('01-01-2021 00:03:44'),
@@ -18,7 +17,6 @@ const files: Array<SidebarItem> = [
 	},
 	{
 		id: 1,
-		path: './',
 		title: 'directory',
 		dateCreated: new Date('12-02-1998 00:03:44'),
 		lastUpdated: new Date('01-01-2000 00:03:44'),
@@ -26,78 +24,94 @@ const files: Array<SidebarItem> = [
 		children: [
 			{
 				id: 2,
-				parentId: 1,
-				path: './directory/',
 				title: 'subdirectory',
 				dateCreated: new Date('01-01-2001 00:03:44'),
 				lastUpdated: new Date('01-01-2002 00:03:44'),
 				isFolder: true,
 				children: [
 					{
-						id: 3,
-						parentId: 2,
-						path: './directory/subdirectory/',
-						title: 'chico',
-						dateCreated: new Date('01-01-2003 00:03:44'),
-						lastUpdated: new Date('01-01-2004 00:03:44'),
-						isFolder: false,
-					},
-					{
 						id: 1241,
-						parentId: 2,
-						path: './directory/subdirectory/',
 						title: 'zeppo',
 						dateCreated: new Date('01-01-2022 00:03:44'),
 						lastUpdated: new Date('01-01-2023 00:03:44'),
 						isFolder: false,
 					},
 					{
+						id: 3,
+						title: 'chico',
+						dateCreated: new Date('01-01-2003 00:03:44'),
+						lastUpdated: new Date('01-01-2004 00:03:44'),
+						isFolder: false,
+					},
+					{
 						id: 32423,
-						parentId: 2,
-						path: './directory/subdirectory/',
 						title: 'hotdogs',
 						dateCreated: new Date('01-01-1983 00:03:44'),
 						lastUpdated: new Date('01-01-2004 00:03:44'),
 						isFolder: false,
 					},
 					{
+						id: 821,
+						title: 'zebra',
+						dateCreated: new Date('01-01-1983 00:03:44'),
+						lastUpdated: new Date('01-01-2004 00:03:44'),
+						isFolder: true,
+						children: [
+							{
+								id: 69,
+								title: 'django',
+								dateCreated: new Date('01-01-1983 00:03:44'),
+								lastUpdated: new Date('01-01-2004 00:03:44'),
+								isFolder: false,
+							},	
+						]
+					},
+					{
 						id: 7,
-						parentId: 2,
-						path: './directory/subdirectory/',
-						title: 'subsubdirectory',
+						title: 'truncated',
 						dateCreated: new Date('01-01-2005 00:03:44'),
 						lastUpdated: new Date('01-01-2006 00:03:44'),
 						isFolder: true,
 						children: [
 							{
 								id: 8,
-								parentId: 2,
-								path: './directory/subdirectory/subsubdirectory',
-								title: 'subsubsubdirectory',
+								title: 'flabbergasat',
 								dateCreated: new Date('01-01-2007 00:03:44'),
 								lastUpdated: new Date('01-01-2008 00:03:44'),
 								isFolder: true,
 								children: [
 									{
 										id: 99,
-										parentId: 2,
-										path: './directory/subdirectory/subsubdirectory',
-										title: 'subsubsubsubdirectory',
+										title: 'daniel',
 										dateCreated: new Date('01-01-2009 00:03:44'),
 										lastUpdated: new Date('01-01-2010 00:03:44'),
 										isFolder: true,
 										children: [
 											{
 												id: 98,
-												parentId: 2,
-												path: './directory/subdirectory/subsubdirectory',
-												title: 'subsubsubsubsubdirectory-file',
+												title: 'doors',
 												dateCreated: new Date('01-01-2011 00:03:44'),
 												lastUpdated: new Date('01-01-2012 00:03:44'),
 												isFolder: false,
 											},	
 										]
-									},	
+									},
+									{
+										id: 321,
+										title: 'jason',
+										dateCreated: new Date('01-01-2009 00:03:44'),
+										lastUpdated: new Date('01-01-2010 00:03:44'),
+										isFolder: true,
+										children: [
+											{
+												id: 928,
+												title: 'derrick',
+												dateCreated: new Date('01-01-2011 00:03:44'),
+												lastUpdated: new Date('01-01-2012 00:03:44'),
+												isFolder: false,
+											},	
+										]
+									},
 								]
 							},	
 						]
@@ -108,7 +122,6 @@ const files: Array<SidebarItem> = [
 	},
 	{
 		id: 4,
-		path: './',
 		title: 'typescript',
 		dateCreated: new Date(),
 		lastUpdated: new Date(),
@@ -116,7 +129,6 @@ const files: Array<SidebarItem> = [
 	},
 	{
 		id: 5,
-		path: './',
 		title: 'folder',
 		dateCreated: new Date(),
 		lastUpdated: new Date(),
@@ -124,15 +136,48 @@ const files: Array<SidebarItem> = [
 		children: [
 			{
 				id: 6,
-				path: './folder',
 				title: 'subfile',
 				dateCreated: new Date(),
 				lastUpdated: new Date(),
 				isFolder: false,
 			}
 		]
+	},
+	{
+		id: 6542,
+		title: 'empty',
+		dateCreated: new Date(),
+		lastUpdated: new Date(),
+		isFolder: true,
 	}
 ]
+
+function sortFileSystem(fileSystem: Array<SidebarItem>): Array<SidebarItem> {
+  const [folders, files] = fileSystem.reduce(
+    (acc, item) => {
+      if (item.isFolder) {
+        acc[0].push(item);
+      } else {
+        acc[1].push(item);
+      }
+      return acc;
+    },
+    [[], []] as [SidebarItem[], SidebarItem[]]
+  );
+
+  const sortedFolders = folders
+    .map((folder) => {
+      const sortedChildren = sortFileSystem(folder.children || []);
+      return { ...folder, children: sortedChildren };
+    })
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  const sortedFiles = files.sort((a, b) => a.title.localeCompare(b.title));
+
+  return [...sortedFolders, ...sortedFiles];
+}
+
+const sortedFileSystem = sortFileSystem(files);
 
 const findItemById = (
 	id: SidebarItem['id'],
@@ -153,31 +198,11 @@ const findItemById = (
 	return null;
 }
 
-console.log(findItemById(98, files));
 
-const sortAlphabetically = (
-	items: SidebarItem[]
-): SidebarItem[] => {
-  return items.sort((a, b) => {
-    return a.title.localeCompare(b.title);
-  }).map((item) => {
-    if (item.children) {
-      item.children = sortAlphabetically(item.children);
-    }
-    return item;
-  });
-}
-
-const alphabetical = sortAlphabetically(files);
-console.log(alphabetical)
-
-function sortFoldersAndFiles(files: Array<SidebarItem>): Array<SidebarItem> {
-  const folders = files.filter((item) => item.isFolder).sort(compareFolders);
-  const filesOnly = files.filter((item) => !item.isFolder).sort(compareFiles);
-  return [...folders, ...filesOnly];
-}
-
-function compareFolders(a: SidebarItem, b: SidebarItem): number {
+function alphabetically(
+	a: SidebarItem, 
+	b: SidebarItem
+): number {
   const titleA = a.title.toLowerCase();
   const titleB = b.title.toLowerCase();
   if (titleA < titleB) {
@@ -189,7 +214,10 @@ function compareFolders(a: SidebarItem, b: SidebarItem): number {
   return 0;
 }
 
-function compareFiles(a: SidebarItem, b: SidebarItem): number {
+function lastUpdated(
+	a: SidebarItem, 
+	b: SidebarItem
+): number {
   const dateA = a.lastUpdated.getTime();
   const dateB = b.lastUpdated.getTime();
   if (dateA < dateB) {
@@ -200,9 +228,6 @@ function compareFiles(a: SidebarItem, b: SidebarItem): number {
   }
   return 0;
 }
-
-const filesAndFolders = sortFoldersAndFiles(files);
-console.log(filesAndFolders);
 
 const sortByDate = (
 	items: SidebarItem[], 
@@ -220,15 +245,12 @@ const sortByDate = (
   });
 }
 
-const sortedByDate = sortByDate(files, 'dateCreated');
-console.log(sortedByDate);
-
 interface SidebarProps {
 	items?: Array<SidebarItem>;
 }
 
 export default function Sidebar (
-	{ items = sortedByDate }: SidebarProps
+	{ items = sortedFileSystem }: SidebarProps
 ) {
 
 	return (
