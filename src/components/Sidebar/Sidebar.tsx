@@ -42,6 +42,48 @@ const files: Array<SidebarItemProps> = [
 						lastUpdated: new Date(),
 						isFolder: false,
 					},
+					{
+						id: 7,
+						parentId: 2,
+						path: './directory/subdirectory/',
+						title: 'subsubdirectory',
+						dateCreated: new Date(),
+						lastUpdated: new Date(),
+						isFolder: true,
+						children: [
+							{
+								id: 8,
+								parentId: 2,
+								path: './directory/subdirectory/subsubdirectory',
+								title: 'subsubsubdirectory',
+								dateCreated: new Date(),
+								lastUpdated: new Date(),
+								isFolder: true,
+								children: [
+									{
+										id: 99,
+										parentId: 2,
+										path: './directory/subdirectory/subsubdirectory',
+										title: 'subsubsubsubdirectory',
+										dateCreated: new Date(),
+										lastUpdated: new Date(),
+										isFolder: true,
+										children: [
+											{
+												id: 98,
+												parentId: 2,
+												path: './directory/subdirectory/subsubdirectory',
+												title: 'subsubsubsubsubdirectory-file',
+												dateCreated: new Date(),
+												lastUpdated: new Date(),
+												isFolder: false,
+											},	
+										]
+									},	
+								]
+							},	
+						]
+					},
 				]
 			},
 		]

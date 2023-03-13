@@ -23,7 +23,8 @@ interface SidebarItemsProps {
 
 export default function SidebarItems ({ items }: SidebarItemsProps) {
 	const mapDirectory = (
-		items: Array<SidebarItemProps>
+		items: Array<SidebarItemProps>,
+		nested: boolean,
 	) => {
 		
 		return items.map((item) => {
@@ -33,9 +34,10 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 						nodeId={`${item.id}`} 
 						key={item.id} 
 						label={item.title} 
-						className="sidebar-item"
+						title={item.title}
+						className={`sidebar-item ${ nested && 'nested' }`}
 					>
-						{ mapDirectory(item.children) }
+						{ mapDirectory(item.children, true) }
 					</TreeItem>
 				)
 			} else {
@@ -44,7 +46,8 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 						nodeId={`${item.id}`} 
 						key={item.id} 
 						label={item.title} 
-						className="sidebar-item"
+						title={item.title}
+						className={`sidebar-item ${ nested && 'nested' }`}
 					/>
 				)
 			}
@@ -52,7 +55,7 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 	}
 	
 	// maybe recursive?
-	const mappedItems = mapDirectory(items);
+	const mappedItems = mapDirectory(items, false);
 
 	return (
 		<TreeView 
