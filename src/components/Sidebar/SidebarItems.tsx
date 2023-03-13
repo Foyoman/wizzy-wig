@@ -5,7 +5,6 @@ import { TreeView, TreeItem } from "@mui/lab";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-// todo: path
 export interface SidebarItemProps {
 	id: number;
 	parentId?: number;
@@ -26,9 +25,16 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 		items: Array<SidebarItemProps>,
 		nested: boolean,
 	) => {
-		
+
+		// todo: to simplify file system, the array of children can be determined by id association 
 		return items.map((item) => {
-			if (item.children) {
+			// if (item.isFolder)
+			const children = items.filter((child) => {
+				return child.parentId === item.id;
+			})
+			console.log(children);
+
+			if (item.isFolder) {
 				return (
 					<TreeItem
 						nodeId={`${item.id}`} 
@@ -37,7 +43,7 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 						title={item.title}
 						className={`sidebar-item ${ nested && 'nested' }`}
 					>
-						{ mapDirectory(item.children, true) }
+						{ mapDirectory(children, true) }
 					</TreeItem>
 				)
 			} else {
@@ -51,6 +57,31 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 					/>
 				)
 			}
+
+
+			// if (item.children) {
+			// 	return (
+			// 		<TreeItem
+			// 			nodeId={`${item.id}`} 
+			// 			key={item.id} 
+			// 			label={item.title} 
+			// 			title={item.title}
+			// 			className={`sidebar-item ${ nested && 'nested' }`}
+			// 		>
+			// 			{ mapDirectory(item.children, true) }
+			// 		</TreeItem>
+			// 	)
+			// } else {
+			// 	return (
+			// 		<TreeItem 
+			// 			nodeId={`${item.id}`} 
+			// 			key={item.id} 
+			// 			label={item.title} 
+			// 			title={item.title}
+			// 			className={`sidebar-item ${ nested && 'nested' }`}
+			// 		/>
+			// 	)
+			// }
 		})
 	}
 	

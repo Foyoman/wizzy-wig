@@ -116,12 +116,40 @@ const files: Array<SidebarItemProps> = [
 	}
 ]
 
+const filesUsingParentId = [
+	{
+		id: 0,
+		path: './',
+		title: 'typescript',
+		dateCreated: new Date(),
+		lastUpdated: new Date(),
+		isFolder: false,
+	},
+	{
+		id: 1,
+		path: './',
+		title: 'folder',
+		dateCreated: new Date(),
+		lastUpdated: new Date(),
+		isFolder: true,
+	},
+	{
+		id: 2,
+		parentId: 1,
+		path: './folder',
+		title: 'subfolder',
+		dateCreated: new Date(),
+		lastUpdated: new Date(),
+		isFolder: false,
+	},
+]
+
 interface SidebarProps {
 	items?: Array<SidebarItemProps>;
 }
 
 export default function Sidebar (
-	{ items = files }: SidebarProps
+	{ items = filesUsingParentId }: SidebarProps
 ) {
 
 	return (
