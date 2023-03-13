@@ -19,6 +19,10 @@ interface SidebarItemsProps {
 }
 
 export default function SidebarItems ({ items }: SidebarItemsProps) {
+	const handleClick = (item: SidebarItem) => {
+		console.log(item);
+	}
+
 	const mapDirectory = (
 		items: Array<SidebarItem>,
 		nested: boolean,
@@ -32,11 +36,13 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 						label={item.title} 
 						title={item.title}
 						className={`sidebar-item ${ nested && 'nested' }`}
+						onClick={() => handleClick(item)}
 					>
-						{ item.children && mapDirectory(item.children, true) }
-						{ !item.children && 
-						<span style={{ display: 'none' }}></span>
-						}
+					{ item.children?.length ? 
+						mapDirectory(item.children, true) 
+						: 
+						<span style={{ display: 'none' }} />
+					}
 					</TreeItem>
 				)
 			} else {
@@ -47,6 +53,7 @@ export default function SidebarItems ({ items }: SidebarItemsProps) {
 						label={item.title} 
 						title={item.title}
 						className={`sidebar-item ${ nested && 'nested' }`}
+						onClick={() => handleClick(item)}
 					/>
 				)
 			}
