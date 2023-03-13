@@ -1,16 +1,34 @@
+import React, { useState } from "react";
+
 import Head from 'next/head';
 import MarkdownParser from '@/components/MarkdownParser/MarkdownParser';
 import Navbar from '@/components/Navbar/Navbar';
 import './Home.scss';
 import Sidebar from '@/components/Sidebar/Sidebar';
 
+import { MdFile } from '@/types/MdFile';
+import { SidebarItem } from '@/types/SidebarItem';
+
+import { mdFiles } from "@/__mocks__/MdFiles";
+
 export default function Home() {
+  const [content, setContent] = useState<string>("");
+
   const autoSave = (content: string) => {
     console.log('updating save state...');
     // move this into axios request response
     const now = new Date();
     const time = now.toLocaleTimeString("en-GB", { hour12: true });
     console.log('last saved at: ' + time);
+  }
+
+  const passFileToParser = (item: SidebarItem) => {
+    console.log('finding file, passing to parser')
+    for (const file of mdFiles) {
+      if (file.id === item.fileId) {
+        setContent(file.content);
+      }
+    }
   }
 
   return (
@@ -24,10 +42,13 @@ export default function Home() {
       <div className="page">
         <Navbar />
         <div className='container'>
-          <Sidebar />
+          <Sidebar 
+            passItem={passFileToParser}
+          />
           <div className='md-container'>
             <MarkdownParser 
               updateSaveState={autoSave}
+              content={content}
             />
           </div>
         </div>

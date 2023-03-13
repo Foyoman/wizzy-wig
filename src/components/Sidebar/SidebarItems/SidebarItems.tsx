@@ -5,22 +5,21 @@ import { TreeView, TreeItem } from "@mui/lab";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-export interface SidebarItem {
-	id: number;
-	title: string;
-	dateCreated: Date;
-	lastUpdated: Date;
-	isFolder: boolean;
-	children?: Array<SidebarItem>;
-}
+import { SidebarItem } from "@/types/SidebarItem";
 
 interface SidebarItemsProps {
 	items: Array<SidebarItem>;
+	echoFile?: (item: SidebarItem) => void;
 }
 
-export default function SidebarItems ({ items }: SidebarItemsProps) {
+export default function SidebarItems (
+	{ items, echoFile	}: SidebarItemsProps
+) {
 	const handleClick = (item: SidebarItem) => {
 		console.log(item);
+		if (echoFile && !item.isFolder) {
+			echoFile(item);
+		}
 	}
 
 	const mapDirectory = (
