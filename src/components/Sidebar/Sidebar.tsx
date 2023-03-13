@@ -178,7 +178,6 @@ export function sortFileSystem(fileSystem: Array<SidebarItem>): Array<SidebarIte
 }
 
 const sortedFileSystem = sortFileSystem(files);
-console.log(sortedFileSystem);
 
 function lastUpdated(
 	a: SidebarItem, 
