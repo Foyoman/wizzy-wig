@@ -123,22 +123,22 @@ const files: Array<SidebarItem> = [
 	{
 		id: 4,
 		title: 'typescript',
-		dateCreated: new Date(),
-		lastUpdated: new Date(),
+		dateCreated: new Date('01-01-2017 00:03:44'),
+		lastUpdated: new Date('01-01-2019 00:03:44'),
 		isFolder: false,
 	},
 	{
 		id: 5,
 		title: 'folder',
-		dateCreated: new Date(),
-		lastUpdated: new Date(),
+		dateCreated: new Date('01-01-2003 00:03:44'),
+		lastUpdated: new Date('01-01-2003 00:03:45'),
 		isFolder: true,
 		children: [
 			{
 				id: 6,
 				title: 'subfile',
-				dateCreated: new Date(),
-				lastUpdated: new Date(),
+				dateCreated: new Date('01-01-1999 00:03:44'),
+				lastUpdated: new Date('01-01-2000 00:03:44'),
 				isFolder: false,
 			}
 		]
@@ -146,13 +146,13 @@ const files: Array<SidebarItem> = [
 	{
 		id: 6542,
 		title: 'empty',
-		dateCreated: new Date(),
-		lastUpdated: new Date(),
+		dateCreated: new Date('01-01-2003 00:03:44'),
+		lastUpdated: new Date('01-01-2003 00:03:44'),
 		isFolder: true,
 	}
 ]
 
-function sortFileSystem(fileSystem: Array<SidebarItem>): Array<SidebarItem> {
+export function sortFileSystem(fileSystem: Array<SidebarItem>): Array<SidebarItem> {
   const [folders, files] = fileSystem.reduce(
     (acc, item) => {
       if (item.isFolder) {
@@ -178,6 +178,7 @@ function sortFileSystem(fileSystem: Array<SidebarItem>): Array<SidebarItem> {
 }
 
 const sortedFileSystem = sortFileSystem(files);
+console.log(sortedFileSystem);
 
 function lastUpdated(
 	a: SidebarItem, 
@@ -244,9 +245,8 @@ interface SidebarProps {
 }
 
 export default function Sidebar (
-	{ items = sortedFileSystem }: SidebarProps
+	{ items = sortedFileSystem }: SidebarProps,
 ) {
-
 	return (
 		<div className="sidebar">
 			<div className="toolbar">

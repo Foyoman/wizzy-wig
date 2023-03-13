@@ -98,6 +98,10 @@
 							content: 'JSX';
 						}
 
+						&.language-json:before {
+							content: 'JSON';
+						}
+
 						&.language-ts:before {
 							content: 'TypeScript';
 						}
