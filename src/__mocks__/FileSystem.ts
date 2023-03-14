@@ -1,6 +1,6 @@
 import { FsFile } from "@/types/FsFile";
 
-export const files: Array<FsFile> = [
+export const files: FsFile[] = [
 	{
 		id: 0,
 		title: 'angela',

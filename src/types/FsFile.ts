@@ -5,5 +5,5 @@ export interface FsFile {
 	lastUpdated: Date;
 	isFolder: boolean;
 	fileId?: string;
-	children?: Array<FsFile>;
+	children?: FsFile[];
 }

@@ -10,7 +10,7 @@ import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
 
 import { files } from "@/__mocks__/FileSystem";
 
-export function sortFileSystem(fileSystem: Array<FsFile>): Array<FsFile> {
+export function sortFileSystem(fileSystem: FsFile[]): FsFile[] {
   const [folders, files] = fileSystem.reduce(
     (acc, item) => {
       if (item.isFolder) {
@@ -79,7 +79,7 @@ const appendChild = (item: FsFile, child: FsFile) => {
 
 const appendById = (
 	id: FsFile['id'],
-	items: Array<FsFile>,
+	items: FsFile[],
 	child: FsFile,
 ): FsFile | null => {
 	for (const item of items) {
@@ -98,7 +98,7 @@ const appendById = (
 }
 
 interface SidebarProps {
-	items?: Array<FsFile>;
+	items?: FsFile[];
   passItem?: (item: FsFile) => void;
 }
 

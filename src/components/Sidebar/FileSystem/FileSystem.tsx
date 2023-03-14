@@ -12,7 +12,7 @@ import type { RootState } from "@/store/store";
 import { updateFile } from "@/store/fileSlice";
 
 interface FileSystemProps {
-	items: Array<FsFile>;
+	items: FsFile[];
 	echoFile?: (item: FsFile) => void;
 }
 
@@ -31,7 +31,7 @@ const FileSystem = (
 	}
 
 	const mapDirectory = (
-		items: Array<FsFile>,
+		items: FsFile[],
 		nested: boolean,
 	) => {
 		return items.map((item) => {
