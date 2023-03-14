@@ -1,9 +1,9 @@
-export interface SidebarItem {
+export interface FsFile {
 	id: number;
 	title: string;
 	dateCreated: Date;
 	lastUpdated: Date;
 	isFolder: boolean;
 	fileId?: string;
-	children?: Array<SidebarItem>;
+	children?: Array<FsFile>;
 }

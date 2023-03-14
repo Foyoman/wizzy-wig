@@ -1,7 +1,7 @@
 import { sortFileSystem } from "./Sidebar";
-import { SidebarItem } from "@/types/SidebarItem";
+import { FsFile } from "@/types/FsFile";
 
-import { files } from "@/__mocks__/SidebarItems";
+import { files } from "@/__mocks__/FileSystem";
 
 const sortedFiles = [
 	{

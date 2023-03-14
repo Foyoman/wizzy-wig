@@ -1,6 +1,6 @@
-import { SidebarItem } from "@/types/SidebarItem";
+import { FsFile } from "@/types/FsFile";
 
-export const files: Array<SidebarItem> = [
+export const files: Array<FsFile> = [
 	{
 		id: 0,
 		title: 'angela',

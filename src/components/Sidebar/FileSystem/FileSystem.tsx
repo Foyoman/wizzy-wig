@@ -1,28 +1,28 @@
 import React from "react";
-import './SidebarItems.scss';
+import './FileSystem.scss';
 
 import { TreeView, TreeItem } from "@mui/lab";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-import { SidebarItem } from "@/types/SidebarItem";
+import { FsFile } from "@/types/FsFile";
 
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from "@/store/store";
 import { updateFile } from "@/store/fileSlice";
 
-interface SidebarItemsProps {
-	items: Array<SidebarItem>;
-	echoFile?: (item: SidebarItem) => void;
+interface FileSystemProps {
+	items: Array<FsFile>;
+	echoFile?: (item: FsFile) => void;
 }
 
-const SidebarItems = (
-	{ items, echoFile	}: SidebarItemsProps
+const FileSystem = (
+	{ items, echoFile	}: FileSystemProps
 ) => {
 	const dispatch = useDispatch();
 	// const file = useSelector((state: RootState))
 
-	const handleClick = (item: SidebarItem) => {
+	const handleClick = (item: FsFile) => {
 		console.log(item);
 		if (item.fileId && !item.isFolder) {
 			dispatch(updateFile(item.fileId));
@@ -31,7 +31,7 @@ const SidebarItems = (
 	}
 
 	const mapDirectory = (
-		items: Array<SidebarItem>,
+		items: Array<FsFile>,
 		nested: boolean,
 	) => {
 		return items.map((item) => {
@@ -82,4 +82,4 @@ const SidebarItems = (
 	)
 }
 
-export default React.memo(SidebarItems);
+export default React.memo(FileSystem);

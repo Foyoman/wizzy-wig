@@ -7,12 +7,11 @@ import './Home.scss';
 import Sidebar from '@/components/Sidebar/Sidebar';
 
 import { MdFile } from '@/types/MdFile';
-import { SidebarItem } from '@/types/SidebarItem';
+import { FsFile } from '@/types/FsFile';
 
 import { mdFiles } from "@/__mocks__/MdFiles";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { updateId } from "@/store/fileIdSlice";
 import type { RootState } from "@/store/store";
 
 export default function Home() {
@@ -27,7 +26,7 @@ export default function Home() {
     console.log('last saved at: ' + time);
   }
 
-  const passFileToParser = (item: SidebarItem) => {
+  const passFileToParser = (item: FsFile) => {
     console.log('finding file, passing to parser')
     for (const file of mdFiles) {
       if (file.id === item.fileId) {

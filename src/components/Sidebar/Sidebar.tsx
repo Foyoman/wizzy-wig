@@ -1,16 +1,16 @@
 import React from "react";
 import './Sidebar.scss';
 
-import SidebarItems from "./SidebarItems/SidebarItems";
-import { SidebarItem } from "@/types/SidebarItem";
+import FileSystem from "./FileSystem/FileSystem";
+import { FsFile } from "@/types/FsFile";
 
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
 import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
 
-import { files } from "@/__mocks__/SidebarItems";
+import { files } from "@/__mocks__/FileSystem";
 
-export function sortFileSystem(fileSystem: Array<SidebarItem>): Array<SidebarItem> {
+export function sortFileSystem(fileSystem: Array<FsFile>): Array<FsFile> {
   const [folders, files] = fileSystem.reduce(
     (acc, item) => {
       if (item.isFolder) {
@@ -20,7 +20,7 @@ export function sortFileSystem(fileSystem: Array<SidebarItem>): Array<SidebarIte
       }
       return acc;
     },
-    [[], []] as [SidebarItem[], SidebarItem[]]
+    [[], []] as [FsFile[], FsFile[]]
   );
 
   const sortedFolders = folders
@@ -38,8 +38,8 @@ export function sortFileSystem(fileSystem: Array<SidebarItem>): Array<SidebarIte
 const sortedFileSystem = sortFileSystem(files);
 
 function lastUpdated(
-	a: SidebarItem, 
-	b: SidebarItem
+	a: FsFile, 
+	b: FsFile
 ): number {
   const dateA = a.lastUpdated.getTime();
   const dateB = b.lastUpdated.getTime();
@@ -53,9 +53,9 @@ function lastUpdated(
 }
 
 const sortByDate = (
-	items: SidebarItem[], 
+	items: FsFile[], 
 	sortKey: 'dateCreated' | 'lastUpdated'
-): SidebarItem[] => {
+): FsFile[] => {
   return items.sort((a, b) => {
     const dateA = a[sortKey].getTime();
     const dateB = b[sortKey].getTime();
@@ -68,7 +68,7 @@ const sortByDate = (
   });
 }
 
-const appendChild = (item: SidebarItem, child: SidebarItem) => {
+const appendChild = (item: FsFile, child: FsFile) => {
 	if (!item.isFolder) throw new Error(`Item with id: ${item.id} is not a folder.`)
 	if (item.children) {
 		item.children.push(child);
@@ -78,10 +78,10 @@ const appendChild = (item: SidebarItem, child: SidebarItem) => {
 }
 
 const appendById = (
-	id: SidebarItem['id'],
-	items: Array<SidebarItem>,
-	child: SidebarItem,
-): SidebarItem | null => {
+	id: FsFile['id'],
+	items: Array<FsFile>,
+	child: FsFile,
+): FsFile | null => {
 	for (const item of items) {
 		if (item.id === id) {
 			appendChild(item, child);
@@ -98,14 +98,14 @@ const appendById = (
 }
 
 interface SidebarProps {
-	items?: Array<SidebarItem>;
-  passItem?: (item: SidebarItem) => void;
+	items?: Array<FsFile>;
+  passItem?: (item: FsFile) => void;
 }
 
 export default function Sidebar (
 	{ items = sortedFileSystem, passItem }: SidebarProps,
 ) {
-  const retrieveFile = (item: SidebarItem) => {
+  const retrieveFile = (item: FsFile) => {
     console.log("item retrieved, passing to App");
     if (passItem) {
       passItem(item);
@@ -119,7 +119,7 @@ export default function Sidebar (
 				<CreateNewFolderOutlinedIcon className="icon" />
 				<NoteAddOutlinedIcon className="icon" />
 			</div>
-			<SidebarItems 
+			<FileSystem 
         items={items} 
         echoFile={retrieveFile}
       />
