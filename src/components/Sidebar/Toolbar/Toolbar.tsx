@@ -25,7 +25,12 @@ export default function Toolbar (
 	{ items }: ToolbarProps
 ) {
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-	const [sort, setSort] = useState<{sortKey: SortKeys, reverse: boolean} | null>(null);
+	const [sort, setSort] = 
+		useState<{
+			sortKey: SortKeys, reverse: boolean
+		} | null>({
+			sortKey: "title", reverse: false
+		});
 	const dispatch = useDispatch();
   const open = Boolean(anchorEl);
 

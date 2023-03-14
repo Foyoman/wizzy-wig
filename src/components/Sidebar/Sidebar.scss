@@ -1,14 +1,3 @@
-@mixin icon {
-	color: var(--gh-lighter-grey);
-	cursor: pointer;
-	transition: all .2s;
-	opacity: .8;
-
-	&:hover {
-		opacity: 1;
-	}
-}
-
 .sidebar	{
 	min-width: 250px;
 	height: 100%;
@@ -16,22 +5,4 @@
 	padding: var(--spacer-xxs) var(--spacer-sm);
 	display: flex;
 	flex-direction: column;
-
-	.toolbar {
-		display: flex;
-		flex-direction: row-reverse;
-		padding: 0 var(--spacer-xxs);
-		gap: var(--spacer-sm);
-		margin-bottom: var(--spacer-sm);
-
-		.icon {
-			@include icon;
-		}
-
-		.toolbar-button {
-			padding: 0;
-			min-width: 0;
-		}
-
-	}
 }
