@@ -4,23 +4,13 @@ import './Sidebar.scss';
 import FileSystem from "./FileSystem/FileSystem";
 import { FsFile } from "@/types/FsFile";
 
-// Mui Icons
-import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
-import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
-import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
-import Menu from "@mui/material/Menu";
-import MenuList from "@mui/material/MenuList";
-import MenuItem from "@mui/material/MenuItem";
-import { Button } from "@mui/material";
-import Check from '@mui/icons-material/Check';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-
 import { fsFiles } from "@/__mocks__/FileSystem";
 import Toolbar from "./Toolbar/Toolbar";
 
-export function sortFileSystem(fileSystem: FsFile[]): FsFile[] {
+export function sortFileSystem(
+	fileSystem: FsFile[], 
+	sortKey: "title" | "dateCreated" | "lastUpdated"
+): FsFile[] {
   const [folders, files] = fileSystem.reduce(
     (acc, item) => {
       if (item.isFolder) {
@@ -35,17 +25,46 @@ export function sortFileSystem(fileSystem: FsFile[]): FsFile[] {
 
   const sortedFolders = folders
     .map((folder) => {
-      const sortedChildren = sortFileSystem(folder.children || []);
+      const sortedChildren = sortFileSystem(folder.children || [], sortKey);
       return { ...folder, children: sortedChildren };
     })
-    .sort((a, b) => a.title.localeCompare(b.title));
-
-  const sortedFiles = files.sort((a, b) => a.title.localeCompare(b.title));
+    .sort((a, b) => { 
+			if (sortKey === "title") {
+				return a.title.localeCompare(b.title)
+			} else {
+				const dateA = a[sortKey];
+				const dateB = b[sortKey];
+				if (dateA < dateB) {
+					return 1;
+				}
+				if (dateA > dateB) {
+					return -1;
+				}
+				return 0;
+			}
+		});
+	
+	let sortedFiles: FsFile[];
+	if (sortKey === "title") {
+		sortedFiles = files.sort((a, b) => a.title.localeCompare(b.title));
+	} else {
+		sortedFiles = files.sort((a, b) => {
+			const dateA = a[sortKey];
+			const dateB = b[sortKey];
+			if (dateA < dateB) {
+				return 1;
+			}
+			if (dateA > dateB) {
+				return -1;
+			}
+			return 0;
+		});
+	}
 
   return [...sortedFolders, ...sortedFiles];
 }
 
-const sortedFileSystem = sortFileSystem(fsFiles);
+const sortedFileSystem = sortFileSystem(fsFiles, "dateCreated");
 
 function lastUpdated(
 	a: FsFile, 
@@ -122,7 +141,7 @@ export default function Sidebar (
 ) {
   const [files, setFiles] = useState<FsFile[] | null>(items);
 
-  const updateFileSystem = () => {
+  const updateFileSystem = (items: FsFile[], sortKey: string) => {
 
   }
 

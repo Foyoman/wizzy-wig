@@ -1,9 +1,9 @@
 import { sortFileSystem } from "./Sidebar";
 import { FsFile } from "@/types/FsFile";
 
-import { fsFiles } from "@/__mocks__/FileSystem";
+import { fsFiles, fsFiles2 } from "@/__mocks__/FileSystem";
 
-const sortedFiles = [
+const sortedFiles: FsFile[] = [
 	{
 		"id": 1,
 		"title": "directory",
@@ -150,8 +150,40 @@ const sortedFiles = [
 	}
 ]
 
+const sortedDateCreated: FsFile[] = [
+	{
+		id: 0,
+		title: 'angela',
+		dateCreated: new Date('01-01-1990 00:03:44'),
+		lastUpdated: new Date('01-01-2000 00:03:44'),
+		fileId: 'dsk238',
+		isFolder: false,
+	},
+	{
+		id: 0,
+		title: 'angela',
+		dateCreated: new Date('01-01-1995 00:03:44'),
+		lastUpdated: new Date('01-01-2020 00:03:44'),
+		fileId: 'dsk238',
+		isFolder: false,
+	},
+	{
+		id: 0,
+		title: 'angela',
+		dateCreated: new Date('01-01-2000 00:03:44'),
+		lastUpdated: new Date('01-01-2010 00:03:44'),
+		fileId: 'dsk238',
+		isFolder: false,
+	},
+]
+
 describe('sort file system', () => {
-	it('sorts files, seperating files and folders', () => {
-		expect(sortFileSystem(fsFiles)).toStrictEqual(sortedFiles);
+	it('sorts alphabetically, seperating files and folders', () => {
+		expect(sortFileSystem(fsFiles, "title")).toStrictEqual(sortedFiles);
+	});
+
+	it('sorts by date created, seperating files and folders', () => {
+		expect(sortFileSystem(fsFiles2, "dateCreated")).toBe(sortedDateCreated);
 	});
 })
+

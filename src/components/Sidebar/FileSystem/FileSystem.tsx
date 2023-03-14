@@ -20,6 +20,7 @@ const FileSystem = (
 	const dispatch = useDispatch();
 
 	const handleClick = (item: FsFile) => {
+		console.log(item);
 		if (item.fileId && !item.isFolder) {
 			dispatch(updateFile(item.fileId));
 		}

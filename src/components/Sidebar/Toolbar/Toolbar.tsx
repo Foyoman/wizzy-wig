@@ -17,7 +17,7 @@ import { FsFile } from "@/types/FsFile";
 
 interface ToolbarProps {
 	items?: FsFile[],
-	onSort?: (items: FsFile[]) => FsFile[]
+	onSort?: (items: FsFile[], sortKey: string) => FsFile[]
 }
 
 export default function Toolbar (

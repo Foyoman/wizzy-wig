@@ -146,3 +146,30 @@ export const fsFiles: FsFile[] = [
 		isFolder: true,
 	}
 ]
+
+export const fsFiles2: FsFile[] = [
+	{
+		id: 0,
+		title: 'angela',
+		dateCreated: new Date('01-01-1995 00:03:44'),
+		lastUpdated: new Date('01-01-2020 00:03:44'),
+		fileId: 'dsk238',
+		isFolder: false,
+	},
+	{
+		id: 0,
+		title: 'angela',
+		dateCreated: new Date('01-01-1990 00:03:44'),
+		lastUpdated: new Date('01-01-2000 00:03:44'),
+		fileId: 'dsk238',
+		isFolder: false,
+	},
+	{
+		id: 0,
+		title: 'angela',
+		dateCreated: new Date('01-01-2000 00:03:44'),
+		lastUpdated: new Date('01-01-2010 00:03:44'),
+		fileId: 'dsk238',
+		isFolder: false,
+	},
+]
