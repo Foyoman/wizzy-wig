@@ -12,9 +12,9 @@ interface SidebarItemsProps {
 	echoFile?: (item: SidebarItem) => void;
 }
 
-export default function SidebarItems (
+const SidebarItems = (
 	{ items, echoFile	}: SidebarItemsProps
-) {
+) => {
 	const handleClick = (item: SidebarItem) => {
 		console.log(item);
 		if (echoFile && !item.isFolder) {
@@ -73,3 +73,5 @@ export default function SidebarItems (
 		</TreeView>
 	)
 }
+
+export default React.memo(SidebarItems);
