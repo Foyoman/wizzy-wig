@@ -7,6 +7,6 @@ export const mdFiles: MdFile[] = [
 	},
 	{
 		id: 'ts1',
-		content: ""
+		content: "typescript file"
 	}
 ]

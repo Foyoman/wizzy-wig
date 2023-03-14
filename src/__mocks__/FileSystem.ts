@@ -120,6 +120,7 @@ export const files: FsFile[] = [
 		dateCreated: new Date('01-01-2017 00:03:44'),
 		lastUpdated: new Date('01-01-2019 00:03:44'),
 		isFolder: false,
+		fileId: "ts1",
 	},
 	{
 		id: 5,
