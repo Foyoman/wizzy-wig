@@ -1,71 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import './Sidebar.scss';
 
 import FileSystem from "./FileSystem/FileSystem";
-import { FsFile, SortFunction } from "@/types/FileSystem";
+import { FsFile } from "@/types/FileSystem";
 
-import { fsFiles } from "@/__mocks__/FileSystem";
 import Toolbar from "./Toolbar/Toolbar";
 
-export const sortFileSystem: SortFunction = (fileSystem, sortKey, reverse) => {
-  const [folders, files] = fileSystem.reduce(
-    (acc, item) => {
-      if (item.isFolder) {
-        acc[0].push(item);
-      } else {
-        acc[1].push(item);
-      }
-      return acc;
-    },
-    [[], []] as [FsFile[], FsFile[]]
-  );
-
-  const sortedFolders = folders
-    .map((folder) => {
-      const sortedChildren = sortFileSystem(folder.children || [], sortKey, reverse);
-      return { ...folder, children: sortedChildren };
-    })
-    .sort((a, b) => { 
-			if (sortKey === "title") {
-				return a.title.localeCompare(b.title)
-			} else {
-				const dateA = a[sortKey];
-				const dateB = b[sortKey];
-				if (dateA < dateB) {
-					return 1;
-				}
-				if (dateA > dateB) {
-					return -1;
-				}
-				return 0;
-			}
-		});
-	
-	let sortedFiles: FsFile[];
-	if (sortKey === "title") {
-		sortedFiles = files.sort((a, b) => a.title.localeCompare(b.title));
-	} else {
-		sortedFiles = files.sort((a, b) => {
-			const dateA = a[sortKey];
-			const dateB = b[sortKey];
-			if (dateA < dateB) {
-				return 1;
-			}
-			if (dateA > dateB) {
-				return -1;
-			}
-			return 0;
-		});
-	}
-
-	if (reverse) {
-		return [...sortedFolders.reverse(), ...sortedFiles.reverse()];
-	} else {
-		return [...sortedFolders, ...sortedFiles];
-	}
-}
-
-const sortedFileSystem = sortFileSystem(fsFiles, "dateCreated", false);
+import { useSelector } from 'react-redux';
+import type { RootState } from "@/store/store";
 
 const appendChild = (item: FsFile, child: FsFile) => {
 	if (!item.isFolder) {
@@ -98,23 +40,13 @@ const appendById = (
 	return null;
 }
 
-interface SidebarProps {
-	items?: FsFile[];
-}
-
-export default function Sidebar (
-	{ items = sortedFileSystem }: SidebarProps,
-) {
-  const [files, setFiles] = useState<FsFile[]>(items);
-
-  const updateFileSystem: SortFunction = (items, sortKey, reverse) => {
-		setFiles(sortFileSystem(items, sortKey, reverse));
-	}
+export default function Sidebar () {
+	const fileSys = useSelector((state: RootState) => state.fileSys.value);
 
 	return (
 		<div className="sidebar">
-			<Toolbar items={files} onSort={updateFileSystem} />
-			<FileSystem items={files} />
+			<Toolbar items={fileSys} />
+			<FileSystem items={fileSys} />
 		</div>
 	)
 }

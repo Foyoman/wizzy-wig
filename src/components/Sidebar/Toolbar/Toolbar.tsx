@@ -14,17 +14,19 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
 import { FsFile, SortKeys, SortFunction } from "@/types/FileSystem";
+import { useDispatch } from "react-redux";
+import { sortFs } from "@/store/fileSysSlice";
 
 interface ToolbarProps {
 	items: FsFile[],
-	onSort: SortFunction
 }
 
 export default function Toolbar (
-	{ items, onSort }: ToolbarProps
+	{ items }: ToolbarProps
 ) {
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 	const [sort, setSort] = useState<{sortKey: SortKeys, reverse: boolean} | null>(null);
+	const dispatch = useDispatch();
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,9 +34,7 @@ export default function Toolbar (
   };
 
   const handleSelect: SortFunction = (items, sortKey, reverse) => {
-		if (onSort) {
-			onSort(items, sortKey, reverse);
-		}
+		dispatch(sortFs({items, sortKey, reverse}));
 		setSort({sortKey: sortKey, reverse: reverse});
     setAnchorEl(null);
   };

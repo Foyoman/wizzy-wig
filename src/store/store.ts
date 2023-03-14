@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import fileReducer from './fileSlice';
+import fileSysReducer from './fileSysSlice';
 
 export const store = configureStore({
 	reducer: {
 		file: fileReducer,
+		fileSys: fileSysReducer,
 	},
 })
 

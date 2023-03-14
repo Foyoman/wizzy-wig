@@ -1,4 +1,4 @@
-import { sortFileSystem } from "./Sidebar";
+import { sortFileSystem } from "@/store/fileSysSlice";
 import { FsFile } from "@/types/FileSystem";
 
 import { fsFiles, fsFiles2 } from "@/__mocks__/FileSystem";
