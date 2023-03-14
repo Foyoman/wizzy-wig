@@ -7,6 +7,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import { SidebarItem } from "@/types/SidebarItem";
 
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from "@/store/store";
+import { updateFile } from "@/store/fileSlice";
+
 interface SidebarItemsProps {
 	items: Array<SidebarItem>;
 	echoFile?: (item: SidebarItem) => void;
@@ -15,10 +19,14 @@ interface SidebarItemsProps {
 const SidebarItems = (
 	{ items, echoFile	}: SidebarItemsProps
 ) => {
+	const dispatch = useDispatch();
+	// const file = useSelector((state: RootState))
+
 	const handleClick = (item: SidebarItem) => {
 		console.log(item);
-		if (echoFile && !item.isFolder) {
-			echoFile(item);
+		if (item.fileId && !item.isFolder) {
+			dispatch(updateFile(item.fileId));
+			// echoFile(item);
 		}
 	}
 

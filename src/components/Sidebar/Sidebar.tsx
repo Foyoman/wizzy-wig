@@ -105,7 +105,6 @@ interface SidebarProps {
 export default function Sidebar (
 	{ items = sortedFileSystem, passItem }: SidebarProps,
 ) {
-
   const retrieveFile = (item: SidebarItem) => {
     console.log("item retrieved, passing to App");
     if (passItem) {

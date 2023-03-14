@@ -11,7 +11,12 @@ import { SidebarItem } from '@/types/SidebarItem';
 
 import { mdFiles } from "@/__mocks__/MdFiles";
 
+import { useSelector, useDispatch } from 'react-redux';
+import { updateId } from "@/store/fileIdSlice";
+import type { RootState } from "@/store/store";
+
 export default function Home() {
+  const file = useSelector((state: RootState) => state.file.value);
   const [content, setContent] = useState<string>("");
 
   const autoSave = (content: string) => {
@@ -48,7 +53,7 @@ export default function Home() {
           <div className='md-container'>
             <MarkdownParser 
               updateSaveState={autoSave}
-              content={content}
+              content={file}
             />
           </div>
         </div>
