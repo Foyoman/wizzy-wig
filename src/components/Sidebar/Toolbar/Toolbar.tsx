@@ -13,11 +13,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
-import { FsFile } from "@/types/FsFile";
+import { FsFile, SortFunction } from "@/types/FileSystem";
 
 interface ToolbarProps {
-	items?: FsFile[],
-	onSort?: (items: FsFile[], sortKey: string) => FsFile[]
+	items: FsFile[],
+	onSort: SortFunction
 }
 
 export default function Toolbar (
@@ -25,12 +25,18 @@ export default function Toolbar (
 ) {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleSelect = () => {
+
+  const handleSelect: SortFunction = (items, sortKey) => {
+		if (onSort) {
+			onSort(items, sortKey);
+		}
     setAnchorEl(null);
-  }
+		return items;
+  };
 
 	interface CheckedProps extends JSX.IntrinsicAttributes {
 		visible?: boolean;
@@ -63,7 +69,7 @@ export default function Toolbar (
 				id="sort-menu"
 				anchorEl={anchorEl}
 				open={open}
-				onClose={handleSelect}
+				// onClose={() => handleSelect(items, "title")}
 				MenuListProps={{
 					'aria-labelledby': 'basic-button',
 				}}
@@ -71,14 +77,14 @@ export default function Toolbar (
 				<MenuList id="menu-list" dense>
 					<MenuItem 
 						className="menu-item" 
-						onClick={handleSelect}
+						onClick={() => handleSelect(items, "title")}
 					>
 						<Checked visible={true} />
 						<ListItemText>File Name (A - Z)</ListItemText>
 					</MenuItem>
 					<MenuItem 
 						className="menu-item" 
-						onClick={handleSelect}
+						onClick={() => handleSelect(items, "title")}
 					>
 						<Checked />
 						<ListItemText>File Name (Z - A)</ListItemText>
@@ -86,14 +92,14 @@ export default function Toolbar (
 					<Divider />
 					<MenuItem 
 						className="menu-item" 
-						onClick={handleSelect}
+						onClick={() => handleSelect(items, "lastUpdated")}
 					>
 						<Checked />
 						<ListItemText>Date Modified (Newest First)</ListItemText>
 					</MenuItem>
 					<MenuItem 
 						className="menu-item" 
-						onClick={handleSelect}
+						onClick={() => handleSelect(items, "lastUpdated")}
 					>
 						<Checked />
 						<ListItemText>Date Modified (Oldest First)</ListItemText>
@@ -101,14 +107,14 @@ export default function Toolbar (
 					<Divider />
 					<MenuItem 
 						className="menu-item" 
-						onClick={handleSelect}
+						onClick={() => handleSelect(items, "dateCreated")}
 					>
 						<Checked />
 						<ListItemText>Date Created (Newest First)</ListItemText>
 					</MenuItem>
 					<MenuItem 
 						className="menu-item" 
-						onClick={handleSelect}
+						onClick={() => handleSelect(items, "dateCreated")}
 					>
 						<Checked />
 						<ListItemText>Date Created (Oldest First)</ListItemText>

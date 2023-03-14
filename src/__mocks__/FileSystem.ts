@@ -1,4 +1,4 @@
-import { FsFile } from "@/types/FsFile";
+import { FsFile } from "@/types/FileSystem";
 
 export const fsFiles: FsFile[] = [
 	{

@@ -5,7 +5,7 @@ import { TreeView, TreeItem } from "@mui/lab";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-import { FsFile } from "@/types/FsFile";
+import { FsFile } from "@/types/FileSystem";
 
 import { useDispatch } from 'react-redux';
 import { updateFile } from "@/store/fileSlice";

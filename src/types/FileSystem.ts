@@ -7,3 +7,8 @@ export interface FsFile {
 	fileId?: string;
 	children?: FsFile[];
 }
+
+export type SortFunction = (
+	files: FsFile[], 
+	sortKey: "title" | "dateCreated" | "lastUpdated"
+) => FsFile[];

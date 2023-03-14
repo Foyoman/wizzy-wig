@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import './Sidebar.scss';
 
 import FileSystem from "./FileSystem/FileSystem";
-import { FsFile } from "@/types/FsFile";
+import { FsFile, SortFunction } from "@/types/FileSystem";
 
 import { fsFiles } from "@/__mocks__/FileSystem";
 import Toolbar from "./Toolbar/Toolbar";
 
-export function sortFileSystem(
-	fileSystem: FsFile[], 
-	sortKey: "title" | "dateCreated" | "lastUpdated"
-): FsFile[] {
+export const sortFileSystem: SortFunction = (fileSystem, sortKey) => {
   const [folders, files] = fileSystem.reduce(
     (acc, item) => {
       if (item.isFolder) {
@@ -66,37 +63,6 @@ export function sortFileSystem(
 
 const sortedFileSystem = sortFileSystem(fsFiles, "dateCreated");
 
-function lastUpdated(
-	a: FsFile, 
-	b: FsFile
-): number {
-  const dateA = a.lastUpdated.getTime();
-  const dateB = b.lastUpdated.getTime();
-  if (dateA < dateB) {
-    return 1;
-  }
-  if (dateA > dateB) {
-    return -1;
-  }
-  return 0;
-}
-
-const sortByDate = (
-	items: FsFile[], 
-	sortKey: 'dateCreated' | 'lastUpdated'
-): FsFile[] => {
-  return items.sort((a, b) => {
-    const dateA = a[sortKey].getTime();
-    const dateB = b[sortKey].getTime();
-    return dateA - dateB;
-  }).map((item) => {
-    if (item.children) {
-      item.children = sortByDate(item.children, sortKey);
-    }
-    return item;
-  });
-}
-
 const appendChild = (item: FsFile, child: FsFile) => {
 	if (!item.isFolder) {
     throw new Error(`Item with id: ${item.id} is not a folder.`);
@@ -128,10 +94,6 @@ const appendById = (
 	return null;
 }
 
-const sortItems = () => {
-
-}
-
 interface SidebarProps {
 	items?: FsFile[];
 }
@@ -139,17 +101,18 @@ interface SidebarProps {
 export default function Sidebar (
 	{ items = sortedFileSystem }: SidebarProps,
 ) {
-  const [files, setFiles] = useState<FsFile[] | null>(items);
+  const [files, setFiles] = useState<FsFile[]>(items);
 
-  const updateFileSystem = (items: FsFile[], sortKey: string) => {
-
-  }
+  const updateFileSystem: SortFunction = (items, sortKey) => {
+		setFiles(sortFileSystem(items, sortKey));
+		return items;
+	}
 
 	return (
 		<div className="sidebar">
-			<Toolbar items={items} />
+			<Toolbar items={files} onSort={updateFileSystem} />
 			<FileSystem 
-        items={items} 
+        items={files} 
       />
 		</div>
 	)
