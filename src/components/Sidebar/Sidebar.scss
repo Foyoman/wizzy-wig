@@ -26,7 +26,12 @@
 
 		.icon {
 			@include icon;
-			// color: var(--gh-neutral-grey);
 		}
+
+		.toolbar-button {
+			padding: 0;
+			min-width: 0;
+		}
+
 	}
 }

@@ -15,7 +15,10 @@ export const fileSlice = createSlice({
 	name: 'file',
 	initialState,
 	reducers: {
-		updateFile: (state, action: PayloadAction<string>) => {
+		updateFile: (
+			state, 
+			action: PayloadAction<string>
+		) => {
 			for (const file of mdFiles) {
 				if (file.id === action.payload) {
 					state.value = file.content;

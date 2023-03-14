@@ -7,26 +7,21 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import { FsFile } from "@/types/FsFile";
 
-import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from "@/store/store";
+import { useDispatch } from 'react-redux';
 import { updateFile } from "@/store/fileSlice";
 
 interface FileSystemProps {
 	items: FsFile[];
-	echoFile?: (item: FsFile) => void;
 }
 
 const FileSystem = (
-	{ items, echoFile	}: FileSystemProps
+	{ items	}: FileSystemProps
 ) => {
 	const dispatch = useDispatch();
-	// const file = useSelector((state: RootState))
 
 	const handleClick = (item: FsFile) => {
-		console.log(item);
 		if (item.fileId && !item.isFolder) {
 			dispatch(updateFile(item.fileId));
-			// echoFile(item);
 		}
 	}
 

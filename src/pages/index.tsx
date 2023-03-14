@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Head from 'next/head';
 import MarkdownParser from '@/components/MarkdownParser/MarkdownParser';
@@ -6,17 +6,11 @@ import Navbar from '@/components/Navbar/Navbar';
 import './Home.scss';
 import Sidebar from '@/components/Sidebar/Sidebar';
 
-import { MdFile } from '@/types/MdFile';
-import { FsFile } from '@/types/FsFile';
-
-import { mdFiles } from "@/__mocks__/MdFiles";
-
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import type { RootState } from "@/store/store";
 
 export default function Home() {
   const file = useSelector((state: RootState) => state.file.value);
-  const [content, setContent] = useState<string>("");
 
   const autoSave = (content: string) => {
     console.log('updating save state...');
@@ -24,15 +18,6 @@ export default function Home() {
     const now = new Date();
     const time = now.toLocaleTimeString("en-GB", { hour12: true });
     console.log('last saved at: ' + time);
-  }
-
-  const passFileToParser = (item: FsFile) => {
-    console.log('finding file, passing to parser')
-    for (const file of mdFiles) {
-      if (file.id === item.fileId) {
-        setContent(file.content);
-      }
-    }
   }
 
   return (
@@ -46,9 +31,7 @@ export default function Home() {
       <div className="page">
         <Navbar />
         <div className='container'>
-          <Sidebar 
-            passItem={passFileToParser}
-          />
+          <Sidebar />
           <div className='md-container'>
             <MarkdownParser 
               updateSaveState={autoSave}

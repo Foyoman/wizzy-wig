@@ -4,11 +4,21 @@ import './Sidebar.scss';
 import FileSystem from "./FileSystem/FileSystem";
 import { FsFile } from "@/types/FsFile";
 
+// Mui Icons
 import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
 import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
+import Menu from "@mui/material/Menu";
+import MenuList from "@mui/material/MenuList";
+import MenuItem from "@mui/material/MenuItem";
+import { Button } from "@mui/material";
+import Check from '@mui/icons-material/Check';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 
 import { files } from "@/__mocks__/FileSystem";
+import Toolbar from "./Toolbar/Toolbar";
 
 export function sortFileSystem(fileSystem: FsFile[]): FsFile[] {
   const [folders, files] = fileSystem.reduce(
@@ -69,7 +79,9 @@ const sortByDate = (
 }
 
 const appendChild = (item: FsFile, child: FsFile) => {
-	if (!item.isFolder) throw new Error(`Item with id: ${item.id} is not a folder.`)
+	if (!item.isFolder) {
+    throw new Error(`Item with id: ${item.id} is not a folder.`);
+  }
 	if (item.children) {
 		item.children.push(child);
 	} else {
@@ -99,29 +111,17 @@ const appendById = (
 
 interface SidebarProps {
 	items?: FsFile[];
-  passItem?: (item: FsFile) => void;
 }
 
 export default function Sidebar (
-	{ items = sortedFileSystem, passItem }: SidebarProps,
+	{ items = sortedFileSystem }: SidebarProps,
 ) {
-  const retrieveFile = (item: FsFile) => {
-    console.log("item retrieved, passing to App");
-    if (passItem) {
-      passItem(item);
-    }
-  }
 
 	return (
 		<div className="sidebar">
-			<div className="toolbar">
-				<SortOutlinedIcon className="icon" />
-				<CreateNewFolderOutlinedIcon className="icon" />
-				<NoteAddOutlinedIcon className="icon" />
-			</div>
+			<Toolbar />
 			<FileSystem 
         items={items} 
-        echoFile={retrieveFile}
       />
 		</div>
 	)
