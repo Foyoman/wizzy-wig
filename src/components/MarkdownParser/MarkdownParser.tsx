@@ -152,11 +152,7 @@ function MarkdownEditor(props: EditorProps) {
 	const handleInputChange = useMemo(() => { 
 		return (value: string | undefined) => {
 			if (value) {
-				if (value.length > 5000) {
-					debouncedSetMarkdown(value);
-				} else {
-					updateMarkdown(value);
-				}
+				debouncedSetMarkdown(value);
 			} else {
 				updateMarkdown("");
 			}

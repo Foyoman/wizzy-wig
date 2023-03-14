@@ -1,7 +1,7 @@
 import { sortFileSystem } from "./Sidebar";
 import { FsFile } from "@/types/FsFile";
 
-import { files } from "@/__mocks__/FileSystem";
+import { fsFiles } from "@/__mocks__/FileSystem";
 
 const sortedFiles = [
 	{
@@ -152,6 +152,6 @@ const sortedFiles = [
 
 describe('sort file system', () => {
 	it('sorts files, seperating files and folders', () => {
-		expect(sortFileSystem(files)).toStrictEqual(sortedFiles);
+		expect(sortFileSystem(fsFiles)).toStrictEqual(sortedFiles);
 	});
 })

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './Sidebar.scss';
 
 import FileSystem from "./FileSystem/FileSystem";
@@ -17,7 +17,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
-import { files } from "@/__mocks__/FileSystem";
+import { fsFiles } from "@/__mocks__/FileSystem";
 import Toolbar from "./Toolbar/Toolbar";
 
 export function sortFileSystem(fileSystem: FsFile[]): FsFile[] {
@@ -45,7 +45,7 @@ export function sortFileSystem(fileSystem: FsFile[]): FsFile[] {
   return [...sortedFolders, ...sortedFiles];
 }
 
-const sortedFileSystem = sortFileSystem(files);
+const sortedFileSystem = sortFileSystem(fsFiles);
 
 function lastUpdated(
 	a: FsFile, 
@@ -109,6 +109,10 @@ const appendById = (
 	return null;
 }
 
+const sortItems = () => {
+
+}
+
 interface SidebarProps {
 	items?: FsFile[];
 }
@@ -116,10 +120,15 @@ interface SidebarProps {
 export default function Sidebar (
 	{ items = sortedFileSystem }: SidebarProps,
 ) {
+  const [files, setFiles] = useState<FsFile[] | null>(items);
+
+  const updateFileSystem = () => {
+
+  }
 
 	return (
 		<div className="sidebar">
-			<Toolbar />
+			<Toolbar items={items} />
 			<FileSystem 
         items={items} 
       />

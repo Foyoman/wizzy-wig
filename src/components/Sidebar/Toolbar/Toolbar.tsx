@@ -13,7 +13,16 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
-export default function Toolbar () {
+import { FsFile } from "@/types/FsFile";
+
+interface ToolbarProps {
+	items?: FsFile[],
+	onSort?: (items: FsFile[]) => FsFile[]
+}
+
+export default function Toolbar (
+	{ items, onSort }: ToolbarProps
+) {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
