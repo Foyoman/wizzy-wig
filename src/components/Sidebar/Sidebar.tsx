@@ -7,7 +7,7 @@ import { FsFile, SortFunction } from "@/types/FileSystem";
 import { fsFiles } from "@/__mocks__/FileSystem";
 import Toolbar from "./Toolbar/Toolbar";
 
-export const sortFileSystem: SortFunction = (fileSystem, sortKey) => {
+export const sortFileSystem: SortFunction = (fileSystem, sortKey, reverse) => {
   const [folders, files] = fileSystem.reduce(
     (acc, item) => {
       if (item.isFolder) {
@@ -22,7 +22,7 @@ export const sortFileSystem: SortFunction = (fileSystem, sortKey) => {
 
   const sortedFolders = folders
     .map((folder) => {
-      const sortedChildren = sortFileSystem(folder.children || [], sortKey);
+      const sortedChildren = sortFileSystem(folder.children || [], sortKey, reverse);
       return { ...folder, children: sortedChildren };
     })
     .sort((a, b) => { 
@@ -58,10 +58,14 @@ export const sortFileSystem: SortFunction = (fileSystem, sortKey) => {
 		});
 	}
 
-  return [...sortedFolders, ...sortedFiles];
+	if (reverse) {
+		return [...sortedFolders.reverse(), ...sortedFiles.reverse()];
+	} else {
+		return [...sortedFolders, ...sortedFiles];
+	}
 }
 
-const sortedFileSystem = sortFileSystem(fsFiles, "dateCreated");
+const sortedFileSystem = sortFileSystem(fsFiles, "dateCreated", false);
 
 const appendChild = (item: FsFile, child: FsFile) => {
 	if (!item.isFolder) {
@@ -103,17 +107,14 @@ export default function Sidebar (
 ) {
   const [files, setFiles] = useState<FsFile[]>(items);
 
-  const updateFileSystem: SortFunction = (items, sortKey) => {
-		setFiles(sortFileSystem(items, sortKey));
-		return items;
+  const updateFileSystem: SortFunction = (items, sortKey, reverse) => {
+		setFiles(sortFileSystem(items, sortKey, reverse));
 	}
 
 	return (
 		<div className="sidebar">
 			<Toolbar items={files} onSort={updateFileSystem} />
-			<FileSystem 
-        items={files} 
-      />
+			<FileSystem items={files} />
 		</div>
 	)
 }

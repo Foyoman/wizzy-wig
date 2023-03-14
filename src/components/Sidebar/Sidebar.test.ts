@@ -179,11 +179,11 @@ const sortedDateCreated: FsFile[] = [
 
 describe('sort file system', () => {
 	it('sorts alphabetically, seperating files and folders', () => {
-		expect(sortFileSystem(fsFiles, "title")).toStrictEqual(sortedFiles);
+		expect(sortFileSystem(fsFiles, "title", false)).toStrictEqual(sortedFiles);
 	});
 
 	it('sorts by date created, seperating files and folders', () => {
-		expect(sortFileSystem(fsFiles2, "dateCreated")).toBe(sortedDateCreated);
+		expect(sortFileSystem(fsFiles2, "dateCreated", false)).toBe(sortedDateCreated);
 	});
 })
 

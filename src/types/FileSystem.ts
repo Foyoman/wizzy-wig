@@ -8,7 +8,10 @@ export interface FsFile {
 	children?: FsFile[];
 }
 
+export type SortKeys = "title" | "dateCreated" | "lastUpdated";
+
 export type SortFunction = (
 	files: FsFile[], 
-	sortKey: "title" | "dateCreated" | "lastUpdated"
-) => FsFile[];
+	sortKey: SortKeys,
+	reverse: boolean
+) => any;
