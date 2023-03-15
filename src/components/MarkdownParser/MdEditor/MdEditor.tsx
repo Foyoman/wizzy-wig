@@ -4,7 +4,7 @@ import { debounce } from "lodash";
 import Editor, { useMonaco } from "@monaco-editor/react";
 
 import { useDispatch } from "react-redux";
-import { updateMarkdown } from "@/store/markdownSlice";
+import { updateMarkdown } from "@/store/appSlice";
 import { useSelector } from 'react-redux';
 import type { RootState } from "@/store/store";
 
@@ -16,7 +16,7 @@ interface MdEditorProps {
 
 export default function MdEditor(props: MdEditorProps) {
 	const { content, theme } = props;
-	const markdown = useSelector((state: RootState) => state.markdown.value);
+	const markdown = useSelector((state: RootState) => state.app.markdown);
 	const dispatch = useDispatch();
 	const monaco = useMonaco();
 

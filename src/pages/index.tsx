@@ -10,7 +10,8 @@ import { useSelector } from 'react-redux';
 import type { RootState } from "@/store/store";
 
 export default function Home() {
-  const file = useSelector((state: RootState) => state.file.value);
+  const file = useSelector((state: RootState) => state.app.file);
+  const showSidebar = useSelector((state: RootState) => state.app.showSidebar);
 
   const autoSave = (content: string) => {
     console.log('updating save state...');
@@ -32,7 +33,9 @@ export default function Home() {
         <Navbar />
         <div className='container'>
           <Sidebar />
-          <div className='md-container'>
+          <div 
+            className={`md-container ${!showSidebar && 'sidebar-hidden'}`}
+          >
             <MarkdownParser 
               updateSaveState={autoSave}
               content={file}

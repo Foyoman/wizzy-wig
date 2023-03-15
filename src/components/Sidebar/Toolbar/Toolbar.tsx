@@ -15,7 +15,7 @@ import Divider from '@mui/material/Divider';
 
 import { FsFile, SortKeys, SortFunction } from "@/types/FileSystem";
 import { useDispatch } from "react-redux";
-import { sortFs } from "@/store/fileSysSlice";
+import { sortFs } from "@/store/appSlice";
 
 interface ToolbarProps {
 	items: FsFile[],

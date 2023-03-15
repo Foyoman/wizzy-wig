@@ -41,10 +41,11 @@ const appendById = (
 }
 
 export default function Sidebar () {
-	const fileSys = useSelector((state: RootState) => state.fileSys.value);
+	const fileSys = useSelector((state: RootState) => state.app.fsFiles);
+	const showSidebar = useSelector((state: RootState) => state.app.showSidebar);
 
 	return (
-		<div className="sidebar">
+		<div className={`sidebar ${ !showSidebar && 'hide' }`}>
 			<Toolbar items={fileSys} />
 			<FileSystem items={fileSys} />
 		</div>

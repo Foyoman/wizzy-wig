@@ -42,7 +42,7 @@ import { useSelector } from 'react-redux';
 import type { RootState } from "@/store/store";
 
 export default function MdPreview({ theme }: MdPreviewProps) {
-	const content = useSelector((state: RootState) => state.markdown.value)
+	const content = useSelector((state: RootState) => state.app.markdown)
 	// syntax highlighter configuration for react-markdown
 	const MemoizedMarkdownComponents = useMemo(() => {
 		return {

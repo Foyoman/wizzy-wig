@@ -10,7 +10,14 @@
 		display: flex;
 
 		.md-container {
-			width: calc(100% - 250px);
+			width: 100%;
+			transition: all .2s;
+			max-width: calc(100% - 250px);
+			
+			&.sidebar-hidden {
+				margin-left: -250px;
+				max-width: 100%;
+			}
 		}
 	}
 }

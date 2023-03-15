@@ -8,7 +8,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { FsFile } from "@/types/FileSystem";
 
 import { useDispatch } from 'react-redux';
-import { updateFile } from "@/store/fileSlice";
+import { updateFile } from "@/store/appSlice";
 
 interface FileSystemProps {
 	items: FsFile[];
