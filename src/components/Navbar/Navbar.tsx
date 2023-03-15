@@ -22,7 +22,6 @@ export default function Navbar () {
 				className="toggle-sidebar" 
 				onClick={() => dispatch(toggleSidebar())}
 			/>
-			<p>{ `${showSidebar}` }</p>
 		</div>
 	)
 }
