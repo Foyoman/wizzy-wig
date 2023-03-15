@@ -9,8 +9,6 @@ import Sidebar from '@/components/Sidebar/Sidebar';
 import { useSelector } from 'react-redux';
 import type { RootState } from "@/store/store";
 
-import { useAuthState } from "react-firebase-hooks/auth";
-
 export default function Home() {
   const file = useSelector((state: RootState) => state.app.file);
   const showSidebar = useSelector((state: RootState) => state.app.showSidebar);
